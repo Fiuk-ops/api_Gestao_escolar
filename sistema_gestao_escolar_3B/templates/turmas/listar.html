@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Turmas | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card">
+  <div style="display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap">
+    <div><h1>Turmas</h1><p class="muted">Cadastre e acompanhe as turmas da escola.</p></div>
+    <a class="botao" href="/turma/nova">Adicionar turma</a>
+  </div>
+</section>
+<section class="card">
+  {% if turmas %}
+  <table>
+    <thead><tr><th>Código</th><th>Turma</th><th>Curso</th><th>Professor</th><th>Alunos</th><th>Horário</th><th></th></tr></thead>
+    <tbody>
+      {% for turma in turmas %}
+      <tr><td>{{ turma.codigo }}</td><td>{{ turma.nome }}</td><td>{{ turma.curso_nome }}</td><td>{{ turma.professor_nome }}</td><td>{{ turma.total_alunos }}</td><td>{{ turma.horario|default('-') }}</td><td><a href="/turma/{{ turma.id }}/alunos">Gerenciar alunos</a></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Nenhuma turma cadastrada ainda.</p>
+  {% endif %}
+</section>
+{% endblock %}

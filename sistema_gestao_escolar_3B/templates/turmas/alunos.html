@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Alunos da turma | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card"><h1>{{ turma.nome }}</h1><p class="muted">Curso: {{ turma.curso_nome }} · Professor: {{ turma.professor_nome }} · Capacidade: {{ turma.capacidade|default('Não definida') }}</p></section>
+<section class="card"><h2>Adicionar aluno</h2>
+{% if disponiveis %}<form method="post"><label for="aluno_id">Aluno disponível</label><select id="aluno_id" name="aluno_id" required><option value="">Selecione</option>{% for aluno in disponiveis %}<option value="{{ aluno.id }}">{{ aluno.nome }} — {{ aluno.matricula }}</option>{% endfor %}</select><button type="submit">Adicionar à turma</button></form>{% else %}<p class="muted">Não há outros alunos disponíveis para esta turma.</p>{% endif %}
+</section>
+<section class="card"><h2>Alunos matriculados ({{ matriculados|length }})</h2>
+{% if matriculados %}<table><thead><tr><th>Matrícula</th><th>Nome</th><th>E-mail</th><th>Data de matrícula</th></tr></thead><tbody>{% for aluno in matriculados %}<tr><td>{{ aluno.matricula }}</td><td>{{ aluno.nome }}</td><td>{{ aluno.email }}</td><td>{{ aluno.data_matricula|default('-') }}</td></tr>{% endfor %}</tbody></table>{% else %}<p class="muted">Nenhum aluno foi adicionado a esta turma ainda.</p>{% endif %}
+<a class="botao secundario" href="/turmas">Voltar para turmas</a></section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Nova turma | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card auth" style="width:min(620px,100%)">
+  <h1>Adicionar turma</h1>
+  {% if not cursos or not professores %}
+  <div class="alerta info">Cadastre pelo menos um <a href="/curso/novo">curso</a> e um <a href="/professor/novo">professor</a> antes de criar uma turma.</div>
+  {% endif %}
+  <form method="post">
+    <label for="codigo">Código</label>
+    <input id="codigo" name="codigo" placeholder="Ex.: 3B-2026" required>
+    <label for="nome">Nome da turma</label>
+    <input id="nome" name="nome" placeholder="Ex.: 3º Ano B" required>
+    <label for="curso_id">Curso</label>
+    <select id="curso_id" name="curso_id" required {% if not cursos %}disabled{% endif %}>
+      <option value="">Selecione</option>
+      {% for curso in cursos %}<option value="{{ curso.id }}">{{ curso.nome }}</option>{% endfor %}
+    </select>
+    <label for="professor_id">Professor responsável</label>
+    <select id="professor_id" name="professor_id" required {% if not professores %}disabled{% endif %}>
+      <option value="">Selecione</option>
+      {% for professor in professores %}<option value="{{ professor.id }}">{{ professor.nome }}</option>{% endfor %}
+    </select>
+    <label for="horario">Horário</label>
+    <input id="horario" name="horario" placeholder="Ex.: Segunda a sexta, 13h às 17h">
+    <label for="capacidade">Quantidade máxima de alunos</label>
+    <input id="capacidade" name="capacidade" type="number" min="1" placeholder="Ex.: 30">
+    <label for="data_inicio">Início</label>
+    <input id="data_inicio" name="data_inicio" type="date">
+    <label for="data_fim">Término</label>
+    <input id="data_fim" name="data_fim" type="date">
+    <button type="submit" {% if not cursos or not professores %}disabled{% endif %}>Salvar turma</button>
+    <a class="botao secundario" href="/turmas">Cancelar</a>
+  </form>
+</section>
+{% endblock %}

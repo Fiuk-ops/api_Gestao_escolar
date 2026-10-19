@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Alunos | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card">
+  <div style="display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap">
+    <div><h1>Alunos</h1><p class="muted">Consulte e cadastre os alunos da escola.</p></div>
+    <a class="botao" href="/aluno/novo">Adicionar aluno</a>
+  </div>
+</section>
+<section class="card">
+  {% if alunos %}
+  <table>
+    <thead><tr><th>Matrícula</th><th>Nome</th><th>E-mail</th><th>Telefone</th><th></th></tr></thead>
+    <tbody>
+      {% for aluno in alunos %}
+      <tr><td>{{ aluno.matricula }}</td><td>{{ aluno.nome }}</td><td>{{ aluno.email }}</td><td>{{ aluno.telefone|default('-') }}</td><td><a href="/aluno/{{ aluno.id }}">Ver perfil</a></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Nenhum aluno cadastrado ainda.</p>
+  {% endif %}
+</section>
+{% endblock %}

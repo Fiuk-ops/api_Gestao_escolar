@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Notas — {{ turma.nome }}{% endblock %}
+{% block content %}
+<section class="card"><h1>Notas: {{ turma.nome }}</h1><p class="muted">Preencha as três avaliações. A média é calculada automaticamente.</p></section>
+<section class="card">
+  {% if not alunos or not modulos %}
+  <div class="alerta info">Esta turma precisa ter alunos matriculados e matérias cadastradas no curso antes do lançamento.</div>
+  {% else %}
+  <form method="post">
+    <label for="matricula_id">Aluno</label><select id="matricula_id" name="matricula_id" required><option value="">Selecione</option>{% for aluno in alunos %}<option value="{{ aluno.matricula_id }}">{{ aluno.nome }}</option>{% endfor %}</select>
+    <label for="modulo_id">Matéria</label><select id="modulo_id" name="modulo_id" required><option value="">Selecione</option>{% for modulo in modulos %}<option value="{{ modulo.id }}">{{ modulo.nome }}</option>{% endfor %}</select>
+    <div class="grade">
+      <div><label for="primeira_nota">1ª nota</label><input id="primeira_nota" name="primeira_nota" type="number" min="0" max="10" step="0.01" required></div>
+      <div><label for="segunda_nota">2ª nota</label><input id="segunda_nota" name="segunda_nota" type="number" min="0" max="10" step="0.01" required></div>
+      <div><label for="terceira_nota">3ª nota</label><input id="terceira_nota" name="terceira_nota" type="number" min="0" max="10" step="0.01" required></div>
+    </div>
+    <button type="submit">Salvar notas</button><a class="botao secundario" href="/notas">Voltar</a>
+  </form>
+  {% endif %}
+</section>
+<section class="card"><h2>Notas já lançadas</h2>
+  {% if notas_lancadas %}<table><thead><tr><th>Aluno</th><th>Matéria</th><th>1ª</th><th>2ª</th><th>3ª</th><th>Média</th></tr></thead><tbody>{% for nota in notas_lancadas %}<tr><td>{{ nota.aluno_nome }}</td><td>{{ nota.modulo_nome }}</td><td>{{ nota.primeira_nota }}</td><td>{{ nota.segunda_nota }}</td><td>{{ nota.terceira_nota }}</td><td><strong>{{ nota.media_final }}</strong></td></tr>{% endfor %}</tbody></table>{% else %}<p class="muted">Nenhuma nota lançada ainda.</p>{% endif %}
+</section>
+{% endblock %}

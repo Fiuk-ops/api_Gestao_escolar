@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Cursos | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card"><div style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap"><div><h1>Cursos</h1><p class="muted">Cadastre os cursos e as matérias de cada um.</p></div><a class="botao" href="/curso/novo">Adicionar curso</a></div></section>
+<section class="card">
+{% if cursos %}<table><thead><tr><th>Curso</th><th>Duração</th><th>Valor</th><th>Matérias</th><th>Turmas</th></tr></thead><tbody>{% for curso in cursos %}<tr><td>{{ curso.nome }}</td><td>{{ curso.duracao_meses|default('-') }} meses</td><td>{% if curso.valor is not none %}R$ {{ '%.2f'|format(curso.valor) }}{% else %}-{% endif %}</td><td>{{ curso.total_modulos }}</td><td>{{ curso.total_turmas }}</td></tr>{% endfor %}</tbody></table>{% else %}<p class="muted">Nenhum curso cadastrado ainda.</p>{% endif %}
+</section>
+{% endblock %}

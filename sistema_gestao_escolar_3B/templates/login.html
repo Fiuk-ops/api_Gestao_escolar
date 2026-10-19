@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Entrar | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card auth">
+  <h1>Entrar no sistema</h1>
+  <p class="muted">Use o seu e-mail e senha para acessar a Gestão Escolar e a Biblioteca.</p>
+  <form method="post" action="{{ url_for('login') }}">
+    <label for="email">E-mail</label>
+    <input id="email" name="email" type="email" autocomplete="email" required>
+    <label for="senha">Senha</label>
+    <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+    <button type="submit">Entrar</button>
+  </form>
+  <p class="muted">Ainda não é aluno? <a href="/cadastro">Faça o cadastro</a>.</p>
+</section>
+{% endblock %}

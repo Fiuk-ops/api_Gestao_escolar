@@ -1,0 +1,17 @@
+services:
+  escola:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sistema_escola
+    ports:
+      - "${PORT:-5000}:5000"
+    volumes:
+      - ./data:/app/data
+      - ./templates:/app/templates
+      - ./static:/app/static
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?Defina SECRET_KEY no arquivo .env ou no ambiente}
+      SCHOOL_DATA_DIR: /app/data
+      PORT: 5000
+    restart: unless-stopped

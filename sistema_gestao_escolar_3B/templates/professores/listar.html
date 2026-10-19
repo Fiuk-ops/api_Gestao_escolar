@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Professores | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card">
+  <div style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap">
+    <div><h1>Professores</h1><p class="muted">Cadastre e acompanhe o corpo docente.</p></div>
+    <a class="botao" href="/professor/novo">Adicionar professor</a>
+  </div>
+</section>
+<section class="card">
+  {% if professores %}
+  <table>
+    <thead><tr><th>Matrícula</th><th>Nome</th><th>E-mail</th><th>Especialidade</th><th>Turmas</th></tr></thead>
+    <tbody>{% for professor in professores %}<tr><td>{{ professor.matricula }}</td><td>{{ professor.nome }}</td><td>{{ professor.email }}</td><td>{{ professor.especialidade|default('-') }}</td><td>{{ professor.total_turmas }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {% else %}<p class="muted">Nenhum professor cadastrado ainda.</p>{% endif %}
+</section>
+{% endblock %}

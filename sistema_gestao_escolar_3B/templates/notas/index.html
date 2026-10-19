@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Notas | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card"><h1>Lançamento de notas</h1><p class="muted">Escolha uma turma para lançar ou revisar as notas dos alunos.</p></section>
+<section class="card">
+  {% if turmas %}
+  <table><thead><tr><th>Turma</th><th>Curso</th><th>Professor</th><th>Alunos</th><th></th></tr></thead><tbody>
+  {% for turma in turmas %}<tr><td>{{ turma.nome }}</td><td>{{ turma.curso_nome }}</td><td>{{ turma.professor_nome|default('Você') }}</td><td>{{ turma.total_alunos }}</td><td><a class="botao" style="margin:0" href="/turma/{{ turma.id }}/notas">Lançar notas</a></td></tr>{% endfor %}
+  </tbody></table>
+  {% else %}<p class="muted">Não há turmas disponíveis para lançamento de notas.</p>{% endif %}
+</section>
+{% endblock %}

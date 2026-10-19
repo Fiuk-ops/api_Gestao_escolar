@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Painel | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Painel da escola</h1>
+  <p class="muted">Perfil atual: {{ tipo_usuario|capitalize }}.</p>
+  <div class="grade">
+    <article><span class="muted">Alunos ativos</span><p class="numero">{{ total_alunos }}</p></article>
+    <article><span class="muted">Professores</span><p class="numero">{{ total_professores }}</p></article>
+    <article><span class="muted">Turmas ativas</span><p class="numero">{{ total_turmas }}</p></article>
+    <article><span class="muted">Cursos</span><p class="numero">{{ total_cursos }}</p></article>
+  </div>
+</section>
+<section class="card">
+  <h2>Acesso rápido</h2>
+  <a class="botao" href="/turmas">Turmas</a>
+  <a class="botao secundario" href="/alunos">Alunos</a>
+  <a class="botao secundario" href="/relatorios">Relatórios</a>
+</section>
+{% if turmas is defined %}
+<section class="card">
+  <h2>Turmas vinculadas</h2>
+  {% if turmas %}
+  <table><thead><tr><th>Turma</th><th>Curso</th><th>Professor</th></tr></thead><tbody>
+    {% for turma in turmas %}<tr><td>{{ turma.nome }}</td><td>{{ turma.curso_nome }}</td><td>{{ turma.professor_nome|default('-') }}</td></tr>{% endfor %}
+  </tbody></table>
+  {% else %}<p class="muted">Não há turmas vinculadas a este perfil.</p>{% endif %}
+</section>
+{% endif %}
+{% if exibir_boas_vindas %}
+<script>
+  window.addEventListener('load', () => {
+    alert('Seja bem-vindo ao Sistema de Gestão Escolar e Biblioteca!');
+  });
+</script>
+{% endif %}
+{% endblock %}

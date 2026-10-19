@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Novo aluno | Gestão Escolar{% endblock %}
+{% block content %}
+<section class="card auth" style="width:min(620px,100%)">
+  <h1>Adicionar aluno</h1>
+  <p class="muted">O aluno receberá uma matrícula e poderá usar o e-mail e a senha informados para entrar.</p>
+  <form method="post">
+    <label for="nome">Nome completo</label>
+    <input id="nome" name="nome" required>
+    <label for="email">E-mail</label>
+    <input id="email" name="email" type="email" required>
+    <label for="cpf">CPF</label>
+    <input id="cpf" name="cpf" inputmode="numeric" required>
+    <label for="telefone">Telefone</label>
+    <input id="telefone" name="telefone" type="tel">
+    <label for="data_nascimento">Data de nascimento</label>
+    <input id="data_nascimento" name="data_nascimento" type="date">
+    <label for="senha">Senha de acesso</label>
+    <input id="senha" name="senha" type="password" autocomplete="new-password" required>
+    <button type="submit">Salvar aluno</button>
+    <a class="botao secundario" href="/alunos">Cancelar</a>
+  </form>
+</section>
+{% endblock %}
